@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Hello World</title>
+</h:head>
+<h:body>
+	<h:outputText value="A MADAME DO HTML U_U"></h:outputText>
+	<h:form>
+
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Sou linda? " />
+			<h:inputText maxlength="50" size="30" />
+
+			<h:outputLabel value="Senha: " />
+			<h:inputSecret maxlength="10" size="30" />
+
+			<h:outputLabel value="Observação: " />
+			<h:inputTextarea cols="32" rows="5" />
+
+			<h:outputLabel value="Interesses da indigri" />
+			<h:selectManyCheckbox>
+				<f:selectItem itemValue="C" itemLabel="Cubo Mágico" />
+				<f:selectItem itemValue="P" itemLabel="Português" />
+				<f:selectItem itemValue="J" itemLabel="Jogar" />
+			</h:selectManyCheckbox>
+
+			<h:outputLabel value="Banco preferido" />
+			<h:selectOneRadio>
+				<f:selectItem itemValue="1" itemLabel="Nubank" />
+				<f:selectItem itemValue="2" itemLabel="Itaú" />
+				<f:selectItem itemValue="3" itemLabel="Inter" />
+			</h:selectOneRadio>
+
+			<h:outputLabel value="Futuro destino" />
+			<h:selectOneMenu>
+				<f:selectItem itemValue="CA" itemLabel="Canadá" />
+				<f:selectItem itemValue="EUA" itemLabel="Estados Unidos" />
+				<f:selectItem itemValue="NZ" itemLabel="Nova Zelândia" />
+				<f:selectItem itemValue="CA" itemLabel="Todos" />
+			</h:selectOneMenu>
+
+		</h:panelGrid>
+		<h:panelGrid>
+			<h:commandButton value="Salvar" />
+		</h:panelGrid>
+
+
+	</h:form>
+</h:body>
+</html>
