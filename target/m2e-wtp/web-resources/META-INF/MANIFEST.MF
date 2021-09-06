@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: indigre
-Build-Jdk: 11.0.11
+Built-By: ingrid.queiroz
+Build-Jdk: 1.8.0_201
 Created-By: Maven Integration for Eclipse
 

@@ -6,23 +6,25 @@
     xmlns:p="http://primefaces.org/ui">
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Hello World</title>
+    <title>Cadastro</title>
 </h:head>
 <h:body>
+	<div class="cadastro">
+		<p>
+			CADASTRO
+		</p>
+	</div>
     <h:form>
     	<h:panelGrid columns="2">
-    		<h:outputLabel value="Código: " />
-			<h:inputText maxlength="50" size="30" />
-			
-			<h:outputLabel value="Descrição: " />
-			<h:inputText maxlength="50" size="30" />
+    		<h:outputLabel value="Nome de usuário: "/>
+    		<h:inputText maxlength = "50" size= "30"/>
+    		
+			<h:outputLabel value="Senha: "/>
+    		<h:inputSecret size = "30"/>
+    		
+    		<h:outputLabel value="Confirmar senha: "/>
+    		<h:inputSecret size = "30"/>
     	</h:panelGrid>    	
-    	
-    	
-    	<h:panelGrid columns="2">
-    		<h:commandButton value="Salvar"/>
-    		<h:commandButton value="Voltar" action="menu.xhtml"/>
-    	</h:panelGrid>
     
     </h:form>
 </h:body>
