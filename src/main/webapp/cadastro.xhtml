@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    >
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Cadastro</title>
@@ -17,13 +19,12 @@
     <h:form>
     	<h:panelGrid columns="2">
     		<h:outputLabel value="Nome de usuário: "/>
-    		<h:inputText maxlength = "50" size= "30"/>
+    		<h:inputText maxlength = "50" size= "30" value="#{clientes.nome}"/>
     		
 			<h:outputLabel value="Senha: "/>
-    		<h:inputSecret size = "30"/>
+    		<h:inputSecret size = "30" value = "#{clientes.senha}"/>
     		
-    		<h:outputLabel value="Confirmar senha: "/>
-    		<h:inputSecret size = "30"/>
+    		<h:commandButton value="salvar" action="#{clientes.cadastrar}"/>
     	</h:panelGrid>    	
     
     </h:form>

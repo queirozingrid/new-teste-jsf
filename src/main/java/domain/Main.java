@@ -1,4 +1,4 @@
-package teste;
+package domain;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 

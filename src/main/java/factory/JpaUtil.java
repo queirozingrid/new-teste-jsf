@@ -1,4 +1,4 @@
-package teste;
+package factory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
