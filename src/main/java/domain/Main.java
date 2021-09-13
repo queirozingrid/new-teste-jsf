@@ -1,16 +1,12 @@
 package domain;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
+import dao.Gerenciador;
 
 public class Main {
-	
-	
-	public static void main(String [] args) {
-//			entityManager.getTransaction().begin();
-//			entityManager.remove(entityManager.find(Cliente.class, 1));
-//			entityManager.getTransaction().commit();
-//			entityManager.close();
-	
+	public static void main(String[] args) {
+		Gerenciador.visualizar();
+
+		
 	}
 
 }

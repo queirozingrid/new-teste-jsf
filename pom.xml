@@ -5,7 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   
-  <name>teste-jsf-main</name>
+  <name>teste-jsf</name>
    <dependencies>
         <dependency>
             <groupId>com.sun.faces</groupId>

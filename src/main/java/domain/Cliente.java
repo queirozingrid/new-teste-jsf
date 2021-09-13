@@ -9,22 +9,26 @@ import javax.persistence.Table;
 
 import dao.Gerenciador;
 
-@ManagedBean(name = "clientes")
+import java.beans.Transient;
+
+
 @Entity
 @Table(name = "clientes")
-public class Cliente {	
-	private
-	String nome;
+@ManagedBean(name = "clientes")
+public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String senha;
+	private String nome;
 	
-	public String getSenha() {
-		return senha;
+	private transient String novoNome;
+	@Transient
+	public String getNovoNome() {
+		return novoNome;
 	}
-	public void setSenha(String senha) {
-		this.senha = senha;
+	@Transient
+	public void setNovoNome(String novoNome) {
+		this.novoNome = novoNome;
 	}
 	public Long getId() {
 		return id;
@@ -39,12 +43,26 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public void cadastrar() {
-		Cliente c = new Cliente();
-		c.setNome(getNome());
-		c.setSenha(getSenha());
-		Gerenciador.cadastrar(c);
+	public String cadastrar() {
+		Cliente cliente = new Cliente();
+		cliente.setNome(getNome());
+		Gerenciador.cadastrar(cliente);
+		return null;
 		
+	} 
+	
+	public String visualizar() {
+		Gerenciador.visualizar();
+		return null;
+	}
+	public String atualizar() {
+		Cliente cliente = new Cliente();
+		cliente.setNome(getNome());
+		cliente.setNovoNome(getNovoNome());
+		
+		Gerenciador.atualizar(cliente.getNome(), getNovoNome());
+				
+		return null;
 	}
 	
 }
