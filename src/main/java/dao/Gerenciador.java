@@ -29,7 +29,7 @@ public class Gerenciador {
 		}
 		
 	}
-	public static void visualizar() {
+	public static List<Cliente> visualizar() {
 		String jpql = "select c from Cliente c";
 		List<Cliente> consulta;
 		
@@ -41,12 +41,13 @@ public class Gerenciador {
 			for (Cliente cliente : consulta) {
 				System.out.println(cliente.getNome());
 			}
-			
+			return consulta;
 			
 		} catch(Exception e) {
 			gerenciador.getTransaction().rollback();
 			System.out.println("entrei no exception");
 			e.printStackTrace();
+			return null;
 		} finally {
 			gerenciador.close();
 		}
