@@ -24,7 +24,17 @@ public class Cliente {
 	private Long id;
 	private String nome;
 	private transient ListDataModel<Cliente> itens;
+
+	public Cliente() {
+		
+	}
 	
+	/*
+	 * private Cliente cliente;
+	 * 
+	 * public Cliente getCliente() { return cliente; } public void
+	 * setCliente(Cliente cliente) { this.cliente = cliente; }
+	 */
 	@Transient
 	public ListDataModel<Cliente> getItens() {
 		return itens;
@@ -55,11 +65,16 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String cadastrar() {
+	
+	/*
+	 * public void prepararCadastro() { Cliente c = new Cliente(); }
+	 */
+	
+	public void cadastrar() {
 		Cliente cliente = new Cliente();
 		cliente.setNome(getNome());
 		Gerenciador.cadastrar(cliente);
-		return null;
+		
 		
 	} 
 	
