@@ -2,15 +2,13 @@ package dao;
 
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 
 import domain.Cliente;
 import factory.JpaUtil;
 
 
-@ManagedBean(name = "gerenciador")
-public class Gerenciador {
+public class ClienteDao {
 	private static EntityManager gerenciador;
 	
 	public static void cadastrar(Cliente cliente) {
@@ -92,7 +90,7 @@ public class Gerenciador {
 		}
 	}
 	public static void atualizar(String nome, String novoNome) {
-		List<Cliente> clientes = Gerenciador.consultaPorNome(nome);
+		List<Cliente> clientes = ClienteDao.consultaPorNome(nome);
 		if(clientes.isEmpty()) {
 			System.out.println("Nenhum registro encontrado no banco para " + nome);
 		}
@@ -109,7 +107,7 @@ public class Gerenciador {
 					System.out.println("Nome alterado com sucesso!");
 				}
 				gerenciador.getTransaction().commit();
-				Gerenciador.visualizar();
+				ClienteDao.visualizar();
 				
 			} catch(Exception e) {
 				gerenciador.getTransaction().rollback();

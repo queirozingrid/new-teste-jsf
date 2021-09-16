@@ -11,8 +11,9 @@
 		<ui:include src="/includes/menu.xhtml"></ui:include>
 	</ui:define>
 	<ui:define name="conteudo">
-		<h:form>
-	        <p:dataTable emptyMessage="Nenhum cliente encontrado."
+		<h:form id="formCliente">
+		
+	        <p:dataTable id="tbCliente" emptyMessage="Nenhum cliente encontrado."   
 	        	value="#{clientes.itens}"
 	        	var="item"
 	        	paginator="true"
@@ -31,7 +32,10 @@
 	            </p:column>
 	            
 	            <f:facet name="footer">
-	            	<p:commandButton value="Novo" onclick="PF('dlgCliente').show();"/>
+	            	<p:commandButton value="Novo"
+	            		actionListener="#{clientes.prepararCadastro}"
+	            		oncomplete="PF('dlgCliente').show();"
+	            		update=":formNovoCliente:pnlNovoCliente"/>
 	            </f:facet>
 	        </p:dataTable>
 		</h:form>
@@ -39,14 +43,21 @@
 					draggable="false" resizable="false"
 					modal="true" appendTo="@(body)"
 					header="Cadastrar cliente">
-			<h:form>
-				<p:panelGrid columns="2">
+					
+			<h:form id="formNovoCliente">
+				<p:panelGrid id="pnlNovoCliente" columns="2">
 					<p:outputLabel value="Nome: "/>
-					<p:inputText size="20" maxlength="30"/>
+					<p:inputText size="20" maxlength="30"
+								value="#{clientes.cliente.nome}"/>
 				</p:panelGrid>
 				
 				<p:panelGrid columns="2">
-					<p:commandButton value="Cadastrar"/>
+					<p:commandButton value="Cadastrar"
+									 actionListener="#{clientes.cadastrar}"
+									 update=":formCliente:tbCliente"
+									 oncomplete="PF('dlgCliente').hide();"
+									 />
+									 
 					<p:commandButton value="Cancelar" onclick="PF('dlgCliente').hide();"/>
 				</p:panelGrid>
 			</h:form>
