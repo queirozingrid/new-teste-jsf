@@ -89,43 +89,30 @@ public class ClienteDao {
 			
 		}
 	}
-	public static void atualizar(String nome, String novoNome) {
-		List<Cliente> clientes = ClienteDao.consultaPorNome(nome);
-		if(clientes.isEmpty()) {
-			System.out.println("Nenhum registro encontrado no banco para " + nome);
-		}
-		
-		else {
-			try {
-				gerenciador = JpaUtil.getEntityManager();
-				gerenciador.getTransaction().begin();
-				if(!novoNome.isEmpty()) {
-					for (Cliente c : clientes) {
-						
-						gerenciador.merge(c).setNome(novoNome);
-					}
-					System.out.println("Nome alterado com sucesso!");
-				}
-				gerenciador.getTransaction().commit();
-				ClienteDao.visualizar();
-				
-			} catch(Exception e) {
-				gerenciador.getTransaction().rollback();
-				e.printStackTrace();
-			} finally {
-				gerenciador.close();
-			}
-		}
-		
-		
-	}
-	public static void remover(Long id) {
+	public static void atualizar(Cliente cliente) {
 		try {
 			gerenciador = JpaUtil.getEntityManager();
 			gerenciador.getTransaction().begin();
-			Cliente cliente = gerenciador.find(Cliente.class, id);
-			gerenciador.remove(cliente);
+			gerenciador.merge(cliente).setNome(cliente.getNome());
 			gerenciador.getTransaction().commit();
+			ClienteDao.visualizar();
+			
+		} catch(Exception e) {
+			gerenciador.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			gerenciador.close();
+	}
+
+}
+	public static void remover(Cliente cliente) {
+		try {
+			gerenciador = JpaUtil.getEntityManager();
+			gerenciador.getTransaction().begin();
+			Cliente cliente2 = gerenciador.find(Cliente.class, cliente.getId());
+			gerenciador.remove(cliente2);
+			gerenciador.getTransaction().commit();
+			
 		} catch (Exception e) {
 			gerenciador.getTransaction().rollback();
 			e.printStackTrace();

@@ -16,8 +16,9 @@
 	        <p:dataTable id="tbCliente" emptyMessage="Nenhum cliente encontrado."   
 	        	value="#{clientes.itens}"
 	        	var="item"
+	        	filteredValue="#{clientes.itensFiltrados}"
 	        	paginator="true"
-	        	rowa="10">
+	        	rows="5">
 	            
 	            <f:facet name="header">
 	            	Todos os clientes
@@ -29,6 +30,16 @@
 	
 	            <p:column headerText="nome" sortBy="#{item.nome}" filterBy="#{item.nome}">
 	                <h:outputText value="#{item.nome}" />
+	            </p:column>
+	            
+	            <p:column headerText="Opções">
+	            	<p:commandButton icon="ui-icon-trash" actionListener="#{clientes.prepararRemover}"
+									 update=":formRemoverCliente:pnlRemoverCliente :msgGlobal"
+									 oncomplete="PF('dlgRemoverCliente').show();"/>
+					
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{clientes.prepararAtualizar}"
+									 update=":formEditarCliente:pnlEditarCliente :msgGlobal"
+									 oncomplete="PF('dlgEditarCliente').show();"/>
 	            </p:column>
 	            
 	            <f:facet name="footer">
@@ -54,13 +65,62 @@
 				<p:panelGrid columns="2">
 					<p:commandButton value="Cadastrar"
 									 actionListener="#{clientes.cadastrar}"
-									 update=":formCliente:tbCliente"
+									 update=":formCliente:tbCliente :msgGlobal"
 									 oncomplete="PF('dlgCliente').hide();"
-									 />
-									 
+									 />				 
 					<p:commandButton value="Cancelar" onclick="PF('dlgCliente').hide();"/>
 				</p:panelGrid>
 			</h:form>
+		</p:dialog>
+		<p:dialog widgetVar="dlgRemoverCliente"
+					closable="true"
+					draggable="false" resizable="false"
+					modal="true" appendTo="@(body)"
+					header="Remover cliente">
+			
+			<h:form id="formRemoverCliente">
+				<p:panelGrid id="pnlRemoverCliente" columns="2">
+					<h:outputText value="id: "/>
+					<h:outputText value="#{clientes.cliente.id}"/>
+					
+					<h:outputText value="nome: "/>
+					<h:outputText value="#{clientes.cliente.nome}"/>
+				</p:panelGrid>
+				
+				<p:panelGrid columns="2">
+					<p:commandButton value="Remover" actionListener="#{clientes.remover}"
+									 update=":formCliente:tbCliente :msgGlobal"
+									 oncomplete="PF('dlgRemoverCliente').hide();"/>
+									 
+					<p:commandButton value="Cancelar" onclick="PF('dlgRemoverCliente').hide();"/>
+				</p:panelGrid>
+				
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dlgEditarCliente" closable="true"
+					draggable="false" resizable="false"
+					modal="true" appendTo="@(body)"
+					header="Editar cliente">
+					
+			<h:form id="formEditarCliente">
+				<p:panelGrid id="pnlEditarCliente" columns="2">
+					<h:outputText value="id: "/>
+					<h:outputText value="#{clientes.cliente.id}"/>
+					
+					<h:outputText value="nome: "/>
+					<h:inputText value="#{clientes.cliente.nome}" size="20" maxlength="30"/>
+				</p:panelGrid>
+				
+				<p:panelGrid columns="2">
+					<p:commandButton value="Editar" actionListener="#{clientes.atualizar}"
+									 update=":formCliente:tbCliente :msgGlobal"
+									 oncomplete="PF('dlgEditarCliente').hide();"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgEditarCliente').hide();"/>
+				</p:panelGrid>
+			
+			</h:form>
+		
 		</p:dialog>
 		
 	</ui:define>

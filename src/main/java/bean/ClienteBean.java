@@ -1,12 +1,9 @@
 package bean;
 
-import java.util.List;
-
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.model.ListDataModel;
-
 import dao.ClienteDao;
 import domain.Cliente;
 import util.JsfUtil;
@@ -15,7 +12,17 @@ import util.JsfUtil;
 @ViewScoped
 public class ClienteBean {
 	private Cliente cliente;
+	private ArrayList<Cliente> itens;
+	private ArrayList<Cliente> itensFiltrados;
 	
+	public ArrayList<Cliente> getItensFiltrados() {
+		return itensFiltrados;
+	}
+
+	public void setItensFiltrados(ArrayList<Cliente> itensFiltrados) {
+		this.itensFiltrados = itensFiltrados;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -23,14 +30,13 @@ public class ClienteBean {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	private ListDataModel<Cliente> itens;
 
 
-	public ListDataModel<Cliente> getItens() {
+	public ArrayList<Cliente> getItens() {
 		return itens;
 	}
 
-	public void setItens(ListDataModel<Cliente> itens) {
+	public void setItens(ArrayList<Cliente> itens) {
 		this.itens = itens;
 	}
 	
@@ -54,18 +60,34 @@ public class ClienteBean {
 	
 	@PostConstruct
 	public void visualizar() {
-		List<Cliente> itens2 = ClienteDao.visualizar();
-		itens = new ListDataModel<Cliente>(itens2);
+		itens = new ArrayList<Cliente>(ClienteDao.visualizar());
+		
 
 	}
-	public String atualizar() {
-		Cliente cliente = new Cliente();
-		cliente.setNome(cliente.getNome());
-		cliente.setNovoNome(cliente.getNovoNome());
+	public void atualizar() {
+		try {
+			ClienteDao.atualizar(cliente);
+			visualizar();
+			JsfUtil.mensagemSucesso("Cliente editado com sucesso!");
+		} catch(Exception e) {
+			e.printStackTrace();
+			JsfUtil.mensagemError(e.getMessage());
+		}
 		
-		ClienteDao.atualizar(cliente.getNome(), cliente.getNovoNome());
-				
-		return null;
+
+	}
+	
+	public void remover() {
+		try {
+			ClienteDao.remover(cliente);
+			visualizar();
+			JsfUtil.mensagemSucesso("Cliente removido com sucesso!");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			JsfUtil.mensagemError(e.getMessage());
+		}
+
 	}
 
 }
