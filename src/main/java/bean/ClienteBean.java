@@ -61,8 +61,6 @@ public class ClienteBean {
 	@PostConstruct
 	public void visualizar() {
 		itens = new ArrayList<Cliente>(ClienteDao.visualizar());
-		
-
 	}
 	public void atualizar() {
 		try {

@@ -13,7 +13,8 @@
 	<ui:define name="conteudo">
 		<h:form id="formCliente">
 		
-	        <p:dataTable id="tbCliente" emptyMessage="Nenhum cliente encontrado."   
+	        <p:dataTable id="tbCliente" widgetVar="wgvTbCliente"
+	        	emptyMessage="Nenhum cliente encontrado."   
 	        	value="#{clientes.itens}"
 	        	var="item"
 	        	filteredValue="#{clientes.itensFiltrados}"
@@ -33,13 +34,21 @@
 	            </p:column>
 	            
 	            <p:column headerText="Opções">
-	            	<p:commandButton icon="ui-icon-trash" actionListener="#{clientes.prepararRemover}"
+	            	<p:commandButton icon="ui-icon-trash"
 									 update=":formRemoverCliente:pnlRemoverCliente :msgGlobal"
-									 oncomplete="PF('dlgRemoverCliente').show();"/>
+									 oncomplete="PF('dlgRemoverCliente').show();">
+									 
+									 <f:setPropertyActionListener value="#{item}"
+									 target="#{clientes.cliente}"/>
+					</p:commandButton>
 					
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{clientes.prepararAtualizar}"
+					<p:commandButton icon="ui-icon-pencil"
 									 update=":formEditarCliente:pnlEditarCliente :msgGlobal"
-									 oncomplete="PF('dlgEditarCliente').show();"/>
+									 oncomplete="PF('dlgEditarCliente').show();">
+									
+									 <f:setPropertyActionListener value="#{item}"
+									 target="#{clientes.cliente}"/>
+					</p:commandButton>
 	            </p:column>
 	            
 	            <f:facet name="footer">
