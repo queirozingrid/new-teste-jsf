@@ -13,7 +13,7 @@
 	<ui:define name="conteudo">
 		<h:form id="formCliente">
 		
-	        <p:dataTable id="tbCliente" widgetVar="wgvTbCliente"
+	        <p:dataTable id="tbCliente"
 	        	emptyMessage="Nenhum cliente encontrado."   
 	        	value="#{clientes.itens}"
 	        	var="item"
@@ -35,16 +35,16 @@
 	            
 	            <p:column headerText="Opções">
 	            	<p:commandButton icon="ui-icon-trash"
-									 update=":formRemoverCliente:pnlRemoverCliente :msgGlobal"
-									 oncomplete="PF('dlgRemoverCliente').show();">
+									 oncomplete="PF('dlgRemoverCliente').show();"
+									 update=":formRemoverCliente:pnlRemoverCliente :msgGlobal">
 									 
 									 <f:setPropertyActionListener value="#{item}"
 									 target="#{clientes.cliente}"/>
 					</p:commandButton>
 					
 					<p:commandButton icon="ui-icon-pencil"
-									 update=":formEditarCliente:pnlEditarCliente :msgGlobal"
-									 oncomplete="PF('dlgEditarCliente').show();">
+									 oncomplete="PF('dlgEditarCliente').show();"
+									 update=":formEditarCliente:pnlEditarCliente :msgGlobal">
 									
 									 <f:setPropertyActionListener value="#{item}"
 									 target="#{clientes.cliente}"/>
@@ -100,7 +100,6 @@
 					<p:commandButton value="Remover" actionListener="#{clientes.remover}"
 									 update=":formCliente:tbCliente :msgGlobal"
 									 oncomplete="PF('dlgRemoverCliente').hide();"/>
-									 
 					<p:commandButton value="Cancelar" onclick="PF('dlgRemoverCliente').hide();"/>
 				</p:panelGrid>
 				

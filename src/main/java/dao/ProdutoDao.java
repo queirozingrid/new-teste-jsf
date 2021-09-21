@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import domain.Produto;
 import factory.JpaUtil;
+import util.JsfUtil;
 
 public class ProdutoDao {
 	private static EntityManager gerenciador;
@@ -15,9 +16,11 @@ public class ProdutoDao {
 			gerenciador.persist(produto);
 			gerenciador.getTransaction().commit();
 			System.out.println("Cadastrado com sucesso!");
+			JsfUtil.mensagemSucesso("Produto cadastrado com sucesso!");
 			
 		} catch(Exception e) {
 			gerenciador.getTransaction().rollback();
+			JsfUtil.mensagemError(e.getMessage());
 		} finally { 
 			gerenciador.close();
 			
@@ -26,7 +29,7 @@ public class ProdutoDao {
 	}
 	
 	public static List<Produto> visualizar() {
-		String jpql = "select p from Produto p";
+		String jpql = "select p from Produto p inner join p.cliente c";
 		List<Produto> consulta;
 		
 		try {
@@ -35,7 +38,13 @@ public class ProdutoDao {
 			consulta = gerenciador.createQuery(jpql, Produto.class).getResultList();
 			
 			for (Produto produto : consulta) {
-				System.out.println(produto.getDescricao());
+				System.out.println("***************************************************" +
+									"id: " + produto.getCodigo() + "\n" +
+									"Descrição: " + produto.getDescricao() + "\n" +
+									"Quantidade: " + produto.getQuantidade() + "\n" +
+									"Preço: " + produto.getPreco() + "\n" +
+									"Cliente: " + produto.getCliente().getNome() + " " +
+									"id: " + produto.getCliente().getId());
 			}
 			return consulta;
 			
@@ -53,13 +62,19 @@ public class ProdutoDao {
 		try {
 			gerenciador = JpaUtil.getEntityManager();
 			gerenciador.getTransaction().begin();
-			gerenciador.merge(produto).setDescricao(produto.getDescricao());
+			Produto p = gerenciador.merge(produto);
+			p.setDescricao(produto.getDescricao());
+			p.setPreco(produto.getPreco());
+			p.setQuantidade(produto.getQuantidade());
+			p.setCliente(produto.getCliente());
+			JsfUtil.mensagemSucesso("Produto editado com sucesso!");
 			gerenciador.getTransaction().commit();
-			ClienteDao.visualizar();
+			ProdutoDao.visualizar();
 			
 		} catch(Exception e) {
 			gerenciador.getTransaction().rollback();
 			e.printStackTrace();
+			JsfUtil.mensagemError(e.getMessage());
 		} finally {
 			gerenciador.close();
 		}
@@ -72,10 +87,13 @@ public class ProdutoDao {
 			Produto produto2 = gerenciador.find(Produto.class, produto.getCodigo());
 			gerenciador.remove(produto2);
 			gerenciador.getTransaction().commit();
+			JsfUtil.mensagemSucesso("Produto removido com sucesso!");
+			ProdutoDao.visualizar();
 			
 		} catch (Exception e) {
 			gerenciador.getTransaction().rollback();
 			e.printStackTrace();
+			JsfUtil.mensagemError(e.getMessage());
 		} finally {
 			gerenciador.close();
 		}

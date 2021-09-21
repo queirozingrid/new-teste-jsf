@@ -45,17 +45,8 @@ public class ClienteBean {
 	}
 	
 	public void cadastrar() {
-		/* cliente.setNome(cliente.getNome()); */
-		try {
-			ClienteDao.cadastrar(cliente);
-			visualizar();
-			JsfUtil.mensagemSucesso("Cliente cadastrado com sucesso!");
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-			JsfUtil.mensagemError(e.getMessage());
-		}
-
+		ClienteDao.cadastrar(cliente);
+		
 	} 
 	
 	@PostConstruct
@@ -63,29 +54,11 @@ public class ClienteBean {
 		itens = new ArrayList<Cliente>(ClienteDao.visualizar());
 	}
 	public void atualizar() {
-		try {
-			ClienteDao.atualizar(cliente);
-			visualizar();
-			JsfUtil.mensagemSucesso("Cliente editado com sucesso!");
-		} catch(Exception e) {
-			e.printStackTrace();
-			JsfUtil.mensagemError(e.getMessage());
-		}
-		
-
+		ClienteDao.atualizar(cliente);
 	}
 	
 	public void remover() {
-		try {
-			ClienteDao.remover(cliente);
-			visualizar();
-			JsfUtil.mensagemSucesso("Cliente removido com sucesso!");
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-			JsfUtil.mensagemError(e.getMessage());
-		}
-
+		ClienteDao.remover(cliente);
 	}
 
 }

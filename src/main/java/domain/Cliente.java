@@ -20,8 +20,7 @@ public class Cliente {
 	public Cliente() {
 			
 	}
-	
-	
+		
 	private transient String novoNome;
 	@Transient
 	public String getNovoNome() {

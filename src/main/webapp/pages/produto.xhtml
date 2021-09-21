@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/templates/template.xhtml">
+	
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml"></ui:include>
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="formProduto">
+			<p:dataTable id="tbProduto"
+						 value="#{produtos.itens}"
+						 var="item"
+						 emptyMessage="Nenhum registro encontrado"
+						 paginator="true" rows="5"
+						 filteredValue="#{produtos.itensFiltrados}">
+						 
+					<f:facet name="header">
+						<h:outputText value="Todos os produtos"/>
+					</f:facet>
+					
+					<p:column headerText="Código" filterBy="#{item.codigo}" sortBy="#{item.codigo}">
+						<h:outputText value="#{item.codigo}"/>
+					</p:column>
+					<p:column headerText="Descrição" filterBy="#{item.descricao}" sortBy="#{item.descricao}">
+						<h:outputText value="#{item.descricao}"/>
+					</p:column>
+					<p:column headerText="Preço" filterBy="#{item.preco}" sortBy="#{item.preco}">
+						<h:outputText value="#{item.preco}"/>
+					</p:column>
+					<p:column headerText="Quantidade" filterBy="#{item.quantidade}" sortBy="#{item.quantidade}">
+						<h:outputText value="#{item.quantidade}"/>
+					</p:column>
+					<p:column headerText="Cliente" filterBy="#{item.cliente.nome}" sortBy="#{item.cliente.nome}">
+						<h:outputText value="#{item.cliente.nome}"/>
+					</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
