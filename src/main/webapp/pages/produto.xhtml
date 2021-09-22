@@ -38,7 +38,123 @@
 					<p:column headerText="Cliente" filterBy="#{item.cliente.nome}" sortBy="#{item.cliente.nome}">
 						<h:outputText value="#{item.cliente.nome}"/>
 					</p:column>
+					
+					<p:column headerText="Opções">
+	            	<p:commandButton icon="ui-icon-trash"
+									 oncomplete="PF('dlgRemoverProduto').show();"
+									 update=":formRemoverProduto:pnlRemoverProduto :msgGlobal">
+									 
+									 <f:setPropertyActionListener value="#{item}"
+									 target="#{produtos.produto}"/>
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-pencil"
+									 oncomplete="PF('dlgEditarProduto').show();"
+									 actionListener="#{produtos.prepararCadastro}"
+									 update=":formEditarProduto:pnlEditarProduto :msgGlobal">
+									
+									 <f:setPropertyActionListener value="#{item}"
+									 target="#{produtos.produto}"/>
+					</p:commandButton>
+	            </p:column>
+					
+					<f:facet name="footer">
+						<p:commandButton value="Novo" oncomplete="PF('dlgNovoProduto').show();"
+										 actionListener="#{produtos.prepararCadastro}"
+										 update=":formNovoProduto:pnlNovoProduto :msgGlobal"/>
+					</f:facet>
 			</p:dataTable>
 		</h:form>
+		<p:dialog widgetVar="dlgNovoProduto" closable="true"
+				  draggable="false" resizable="false"
+				  header="Cadastrar produto">
+				  
+				  <h:form id="formNovoProduto">
+				  		<p:panelGrid id="pnlNovoProduto"  columns="2">
+				  			<p:outputLabel value="Descrição: "/>
+				  			<p:inputText value="#{produtos.produto.descricao}" maxlength="50" size="20"/>
+				  			
+				  			<p:outputLabel value="Preço: "/>
+				  			<p:inputText value="#{produtos.produto.preco}" size="20"/>
+				  			
+				  			<p:outputLabel value="Qtd: "/>
+				  			<p:inputText value="#{produtos.produto.quantidade}" size="20"/>
+				  			
+				  			<p:outputLabel value="Cliente: "/>
+				  				<p:selectOneMenu value="#{produtos.produto.cliente.id}" filter="true">
+				  					
+				  					<f:selectItem itemLabel="Selecione o cliente"/>
+				  					
+				  					<f:selectItems value="#{produtos.comboCliente}" var="item"
+				  					itemValue="#{item.id}"
+				  					itemLabel="#{item.nome}" />
+				  				</p:selectOneMenu>
+				  		</p:panelGrid>
+				  		
+				  		<p:panelGrid columns="2">
+				  			<p:commandButton value="Cadastrar" actionListener="#{produtos.cadastrar}"
+				  							 update=":msgGlobal :formProduto:tbProduto"
+				  							 oncomplete="PF('dlgNovoProduto').hide();" />
+				  			<p:commandButton value="Cancelar" oncomplete="PF('dlgNovoProduto').hide();"/>
+				  		</p:panelGrid>
+				  </h:form>		
+		</p:dialog>
+		<p:dialog widgetVar="dlgRemoverProduto" closable="true"
+				  draggable="false" resizable="false"
+				  header="Remover produto">
+			<h:form id="formRemoverProduto">
+				<p:panelGrid id="pnlRemoverProduto" columns="2">
+					<p:outputLabel value="Código: "/>
+					<p:outputLabel value="#{produtos.produto.codigo}"/>
+					
+					<p:outputLabel value="Descrição: "/>
+					<p:outputLabel value="#{produtos.produto.descricao}"/>
+					
+					<p:outputLabel value="Cliente: "/>
+					<p:outputLabel value="#{produtos.produto.cliente.nome}"/>					
+				</p:panelGrid>
+				<p:panelGrid columns="2">
+						<p:commandButton value="Remover" actionListener="#{produtos.remover}"
+									 update=":formProduto:tbProduto :msgGlobal"
+									 onclick="PF('dlgRemoverProduto').hide();"/>
+						<p:commandButton value="Cancelar" onclick="PF('dlgRemoverProduto').hide();"/>
+					</p:panelGrid>
+			</h:form>
+		</p:dialog>
+		<p:dialog widgetVar="dlgEditarProduto" closable="true"
+				  draggable="false" resizable="false"
+				  header="Editar produto">
+			<h:form id="formEditarProduto">
+				<p:panelGrid id="pnlEditarProduto" columns="2">
+					<p:outputLabel value="Código: "/>
+					<p:outputLabel value="#{produtos.produto.codigo}" maxlength="50" size="20"/>
+					
+					<p:outputLabel value="Descrição: "/>
+					<p:inputText value="#{produtos.produto.descricao}" maxlength="50" size="20"/>
+					
+					<p:outputLabel value="Preço: "/>
+					<p:inputText value="#{produtos.produto.preco}" size="20"/>
+					
+					<p:outputLabel value="Quantidade: "/>
+					<p:inputText value="#{produtos.produto.quantidade}" size="20"/>
+					
+					<p:outputLabel value="Cliente: "/>
+				  				<p:selectOneMenu value="#{produtos.produto.cliente.id}" filter="true">
+				  					
+				  					<f:selectItem itemLabel="Selecione o cliente"/>
+				  					
+				  					<f:selectItems value="#{produtos.comboCliente}" var="item"
+				  					itemValue="#{item.id}"
+				  					itemLabel="#{item.nome}" />
+				  				</p:selectOneMenu>
+									
+					<p:commandButton value="Editar" actionListener="#{produtos.editar}"
+									 update=":formProduto:tbProduto :msgGlobal"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgEditarProduto').hide();"/>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		
 	</ui:define>
 </ui:composition>

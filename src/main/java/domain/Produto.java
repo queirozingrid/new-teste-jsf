@@ -22,7 +22,7 @@ public class Produto {
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_produto")
-	private Cliente cliente;
+	private Cliente cliente = new Cliente();
 
 	public Produto() {
 
