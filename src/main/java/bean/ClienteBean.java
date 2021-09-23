@@ -6,7 +6,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import dao.ClienteDao;
 import domain.Cliente;
-import util.JsfUtil;
 
 @ManagedBean(name = "clientes")
 @ViewScoped
@@ -14,6 +13,7 @@ public class ClienteBean {
 	private Cliente cliente;
 	private ArrayList<Cliente> itens;
 	private ArrayList<Cliente> itensFiltrados;
+
 	
 	public ArrayList<Cliente> getItensFiltrados() {
 		return itensFiltrados;
@@ -38,7 +38,7 @@ public class ClienteBean {
 
 	public void setItens(ArrayList<Cliente> itens) {
 		this.itens = itens;
-	}
+	}	
 	
 	public void prepararCadastro() {
 		cliente = new Cliente();
@@ -60,5 +60,9 @@ public class ClienteBean {
 	public void remover() {
 		ClienteDao.remover(cliente);
 	}
-
+	public void pesquisar() {
+		cliente = new Cliente();
+		ClienteDao.consultaPorNome(cliente.getNome());
+		
+	}
 }

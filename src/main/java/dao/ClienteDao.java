@@ -82,7 +82,7 @@ public class ClienteDao {
 			consulta = gerenciador.createQuery(jpql, Cliente.class).setParameter("nome", nome).getResultList();
 			
 			for (Cliente cliente : consulta) {
-				System.out.println("ID: " + cliente.getId() + " Nome: " +cliente.getNome());
+				System.out.println("ID: " + cliente.getId() + " Nome: " + cliente.getNome());
 			}
 			return consulta;
 		} catch(Exception e) {

@@ -13,7 +13,7 @@
 	<ui:define name="conteudo">
 		<h:form id="formCliente">
 		
-	        <p:dataTable id="tbCliente"
+	        <p:dataTable id="tbCliente" widgetVar="widTbCliente"
 	        	emptyMessage="Nenhum cliente encontrado."   
 	        	value="#{clientes.itens}"
 	        	var="item"
@@ -68,14 +68,16 @@
 				<p:panelGrid id="pnlNovoCliente" columns="2">
 					<p:outputLabel value="Nome: "/>
 					<p:inputText size="20" maxlength="30"
-								value="#{clientes.cliente.nome}"/>
+								 value="#{clientes.cliente.nome}"
+								 required="true"
+								 requiredMessage="Nome é obrigatório!"/>
 				</p:panelGrid>
 				
 				<p:panelGrid columns="2">
 					<p:commandButton value="Cadastrar"
 									 actionListener="#{clientes.cadastrar}"
 									 update=":formCliente:tbCliente :msgGlobal"
-									 oncomplete="PF('dlgCliente').hide();"
+									 oncomplete="verificar(xhr, status, args, 'dlgCliente', 'widTbCliente');"
 									 />				 
 					<p:commandButton value="Cancelar" onclick="PF('dlgCliente').hide();"/>
 				</p:panelGrid>
@@ -126,9 +128,7 @@
 									 oncomplete="PF('dlgEditarCliente').hide();"/>
 					<p:commandButton value="Cancelar" onclick="PF('dlgEditarCliente').hide();"/>
 				</p:panelGrid>
-			
 			</h:form>
-		
 		</p:dialog>
 		
 	</ui:define>

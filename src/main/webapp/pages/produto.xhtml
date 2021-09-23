@@ -149,12 +149,12 @@
 				  				</p:selectOneMenu>
 									
 					<p:commandButton value="Editar" actionListener="#{produtos.editar}"
-									 update=":formProduto:tbProduto :msgGlobal"/>
+									 update=":formProduto:tbProduto :msgGlobal"
+									 onclick="PF('dlgEditarProduto').hide();"/>
 					<p:commandButton value="Cancelar" onclick="PF('dlgEditarProduto').hide();"/>
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
-		
 		
 	</ui:define>
 </ui:composition>
