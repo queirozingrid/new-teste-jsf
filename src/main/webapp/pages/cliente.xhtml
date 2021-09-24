@@ -11,7 +11,7 @@
 		<ui:include src="/includes/menu.xhtml"></ui:include>
 	</ui:define>
 	<ui:define name="conteudo">
-		<h:form id="formCliente">
+		<h:form id="formCliente" style="margin: 10px">
 		
 	        <p:dataTable id="tbCliente" widgetVar="widTbCliente"
 	        	emptyMessage="Nenhum cliente encontrado."   
@@ -25,11 +25,11 @@
 	            	Todos os clientes
 	            </f:facet>
 	            
-	            <p:column headerText="id" sortBy="#{item.id}" filterBy="#{item.id}">
+	            <p:column headerText="id" sortBy="#{item.id}">
 	                <h:outputText value="#{item.id}" />
 	            </p:column>
 	
-	            <p:column headerText="nome" sortBy="#{item.nome}" filterBy="#{item.nome}">
+	            <p:column headerText="nome" sortBy="#{item.nome}">
 	                <h:outputText value="#{item.nome}" />
 	            </p:column>
 	            
@@ -130,6 +130,20 @@
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
+					
+			<h:form id="formPesquisar" style="margin-left: 10px; border-radius: 5px;">
+				<p:panelGrid id="pnlPesquisar" columns="3">
+					<p:inputText value="#{clientes.nomeBusca}"
+								 size="40" maxlength="50"/>
+					
+					<p:commandButton icon='ui-icon-search'
+									 actionListener="#{clientes.pesquisar}"
+								     update=":formCliente:tbCliente"/>
+								     
+					<p:commandButton  icon="ui-icon-refresh" actionListener="#{clientes.visualizar}"
+									  update=":formCliente:tbCliente" />
+				</p:panelGrid>
+			</h:form>
 		
 	</ui:define>
 </ui:composition>

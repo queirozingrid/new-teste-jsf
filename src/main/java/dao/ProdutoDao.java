@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+
+import domain.Cliente;
 import domain.Produto;
 import factory.JpaUtil;
 import util.JsfUtil;
@@ -96,6 +98,27 @@ public class ProdutoDao {
 			JsfUtil.mensagemError(e.getMessage());
 		} finally {
 			gerenciador.close();
+		}
+	}
+	public static List<Produto> consultaPorDescricao(String descricao) {
+		String jpql = "produto p from Produto p where p.descricao =:descricao";
+		List<Produto> consulta;
+		try {
+			gerenciador = JpaUtil.getEntityManager();
+			gerenciador.getTransaction().begin();
+			consulta = gerenciador.createQuery(jpql, Produto.class).setParameter("descricao", descricao).getResultList();
+			
+			for (Produto produto : consulta) {
+				System.out.println("ID: " + produto.getCodigo() + " Descrição: " + produto.getDescricao());
+			}
+			return consulta;
+		} catch(Exception e) {
+			gerenciador.getTransaction().rollback();
+			e.printStackTrace();
+			return null;
+		} finally {
+			gerenciador.clear();
+			
 		}
 	}
 	
