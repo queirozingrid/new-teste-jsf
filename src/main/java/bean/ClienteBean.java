@@ -71,6 +71,8 @@ public class ClienteBean {
     }
     public void pesquisar() {
         itens = new ArrayList<Cliente>(ClienteDao.consultaPorNome(getNomeBusca()));
-
     }
+    public void limparInput() {
+		setNomeBusca(null);
+	}
 }

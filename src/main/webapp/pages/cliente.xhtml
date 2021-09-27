@@ -19,7 +19,8 @@
 	        	var="item"
 	        	filteredValue="#{clientes.itensFiltrados}"
 	        	paginator="true"
-	        	rows="5">
+	        	rows="5"
+	        	style="text-align: center;">
 	            
 	            <f:facet name="header">
 	            	Todos os clientes
@@ -79,7 +80,10 @@
 									 update=":formCliente:tbCliente :msgGlobal"
 									 oncomplete="verificar(xhr, status, args, 'dlgCliente', 'widTbCliente');"
 									 />				 
-					<p:commandButton value="Cancelar" onclick="PF('dlgCliente').hide();"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgCliente').hide();"
+									 process="@this">
+									 <p:resetInput target="pnlNovoCliente"/>
+					</p:commandButton>
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
@@ -102,7 +106,8 @@
 					<p:commandButton value="Remover" actionListener="#{clientes.remover}"
 									 update=":formCliente:tbCliente :msgGlobal"
 									 oncomplete="PF('dlgRemoverCliente').hide();"/>
-					<p:commandButton value="Cancelar" onclick="PF('dlgRemoverCliente').hide();"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgRemoverCliente').hide();"
+								     process="@this"/>
 				</p:panelGrid>
 				
 			</h:form>
@@ -126,7 +131,11 @@
 					<p:commandButton value="Editar" actionListener="#{clientes.atualizar}"
 									 update=":formCliente:tbCliente :msgGlobal"
 									 oncomplete="PF('dlgEditarCliente').hide();"/>
-					<p:commandButton value="Cancelar" onclick="PF('dlgEditarCliente').hide();"/>
+					<p:commandButton value="Cancelar" onclick="PF('dlgEditarCliente').hide();"
+									 process="@this">
+									 
+									  <p:resetInput target="pnlEditarCliente"/>
+					</p:commandButton>
 				</p:panelGrid>
 			</h:form>
 		</p:dialog>
@@ -138,12 +147,11 @@
 					
 					<p:commandButton icon='ui-icon-search'
 									 actionListener="#{clientes.pesquisar}"
-								     update=":formCliente:tbCliente"
-								     />
+								     update=":formCliente:tbCliente"/>
 								     
 					<p:commandButton  icon="ui-icon-refresh" actionListener="#{clientes.visualizar}"
-									  update=":formCliente:tbCliente"
-									  />
+									  update=":formCliente:tbCliente :formPesquisar:pnlPesquisar"
+									  action="#{clientes.limparInput}"/>
 				</p:panelGrid>
 			</h:form>
 		

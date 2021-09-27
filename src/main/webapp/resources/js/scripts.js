@@ -1,6 +1,6 @@
-function verificar(xhr, status, args, dlg, tb) {
+ function verificar(xhr, status, args, dlg, tb) {
     if(args.validationFailed) {
-        PF(dlg).jq.effect("shake", {times:5}, 100);
+        PF(dlg).jq.effect("shake", {times:3}, 100);
     }
     else {
         PF(dlg).hide();

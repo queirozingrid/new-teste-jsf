@@ -74,5 +74,7 @@ public class ProdutoBean {
 	public void pesquisar() {
 		itens = new ArrayList<Produto>(ProdutoDao.consultaPorDescricao(nomeBusca));
 	}
-	
+	public void limparInput() {
+		setNomeBusca(null);
+	}
 }
