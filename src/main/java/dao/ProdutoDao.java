@@ -52,7 +52,6 @@ public class ProdutoDao {
 			
 		} catch(Exception e) {
 			gerenciador.getTransaction().rollback();
-			System.out.println("entrei no exception");
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -101,7 +100,7 @@ public class ProdutoDao {
 		}
 	}
 	public static List<Produto> consultaPorDescricao(String descricao) {
-		String jpql = "produto p from Produto p where p.descricao =:descricao";
+		String jpql = "select p from Produto p where lower(p.descricao) like lower(concat('%', :descricao, '%'))";
 		List<Produto> consulta;
 		try {
 			gerenciador = JpaUtil.getEntityManager();

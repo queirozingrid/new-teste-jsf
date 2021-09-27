@@ -74,7 +74,7 @@ public class ClienteDao {
 	}
 	
 	public static List<Cliente> consultaPorNome(String nome) {
-		String jpql = "select c from Cliente c where c.nome =:nome";
+		String jpql = "select c from Cliente c where lower(c.nome) like lower(concat('%', :nome, '%'))";
 		List<Cliente> consulta;
 		try {
 			gerenciador = JpaUtil.getEntityManager();
@@ -91,6 +91,7 @@ public class ClienteDao {
 			return null;
 		} finally {
 			gerenciador.clear();
+			
 			
 		}
 	}
