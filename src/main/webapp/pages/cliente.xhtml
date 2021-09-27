@@ -69,8 +69,8 @@
 					<p:outputLabel value="Nome: "/>
 					<p:inputText size="20" maxlength="30"
 								 value="#{clientes.cliente.nome}"
-								 required="true"
-								 requiredMessage="Nome é obrigatório!"/>
+								 requiredMessage="Nome é obrigatório!"
+								 required="true" />
 				</p:panelGrid>
 				
 				<p:panelGrid columns="2">
@@ -133,15 +133,17 @@
 					
 			<h:form id="formPesquisar" style="margin-left: 10px; border-radius: 5px;">
 				<p:panelGrid id="pnlPesquisar" columns="3">
-					<p:inputText value="#{clientes.nomeBusca}"
+					<p:inputText id="meuInput" value="#{clientes.nomeBusca}"
 								 size="40" maxlength="50"/>
 					
 					<p:commandButton icon='ui-icon-search'
 									 actionListener="#{clientes.pesquisar}"
-								     update=":formCliente:tbCliente"/>
+								     update=":formCliente:tbCliente"
+								     />
 								     
 					<p:commandButton  icon="ui-icon-refresh" actionListener="#{clientes.visualizar}"
-									  update=":formCliente:tbCliente" />
+									  update=":formCliente:tbCliente"
+									  />
 				</p:panelGrid>
 			</h:form>
 		

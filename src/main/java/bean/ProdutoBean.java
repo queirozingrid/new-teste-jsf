@@ -15,10 +15,18 @@ import domain.Produto;
 @ViewScoped
 public class ProdutoBean {
 	private Produto produto;
+	private String nomeBusca;
 	private ArrayList<Produto> itens;
 	private ArrayList<Produto> itensFiltrados;
 	private ArrayList<Cliente> comboCliente;
 	
+	
+	public String getNomeBusca() {
+		return nomeBusca;
+	}
+	public void setNomeBusca(String nomeBusca) {
+		this.nomeBusca = nomeBusca;
+	}
 	public ArrayList<Cliente> getComboCliente() {
 		return comboCliente;
 	}
@@ -62,6 +70,9 @@ public class ProdutoBean {
 	public void editar() {
 		ProdutoDao.atualizar(produto);
 		visualizar();
+	}
+	public void pesquisar() {
+		itens = new ArrayList<Produto>(ProdutoDao.consultaPorDescricao(nomeBusca));
 	}
 	
 }
